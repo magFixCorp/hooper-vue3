@@ -11,8 +11,8 @@ function iconName(isVertical, isRTL, isPrev) {
 
 function renderButton(disabled, slot, isPrev, { isVertical, isRTL }, onClick) {
   const children =
-    slot && slot.length
-      ? slot
+    Boolean(slot)
+      ? slot()
       : [
           h(Icon, {
             props: {

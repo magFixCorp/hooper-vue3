@@ -4,9 +4,9 @@ import emitter from 'tiny-emitter/instance';
 import { h, ref } from 'vue'
 let EMITTER = {
   $on: (...args) => emitter.on(...args),
-  $once: (...args) => emitter.on(...args),
-  $off: (...args) => emitter.on(...args),
-  $emit: (...args) => emitter.on(...args)
+  $once: (...args) => emitter.once(...args),
+  $off: (...args) => emitter.off(...args),
+  $emit: (...args) => emitter.emit(...args)
 };
 
 export default {
@@ -49,7 +49,7 @@ export default {
     },
     // enable rtl mode
     rtl: {
-      default: true,
+      default: false,
       type: Boolean
     },
     // enable auto sliding to carousel
@@ -635,7 +635,8 @@ function renderSlides() {
  */
 function renderBody() {
   const slides = renderSlides.call(this, h);
-  const addons = this.$slots['hooper-addons'] || [];
+  const addonsFn = this.$slots['hooper-addons'];
+  const addons = Boolean(addonsFn) ? addonsFn() : [];
   const a11y = h(
     'div',
     {

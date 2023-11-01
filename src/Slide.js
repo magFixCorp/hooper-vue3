@@ -58,8 +58,6 @@ export default {
       'is-current': this.isCurrent
     };
 
-    const children = normalizeChildren(this);
-
     return h(
       'li',
       {
@@ -67,7 +65,7 @@ export default {
         style: this.style,
         '.aria-hidden': !this.isActive
       },
-      children
+      this.$slots.default()
     );
   }
 };
